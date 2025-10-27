@@ -90,9 +90,9 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-stone-100">
+    <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-stone-100 supports-[backdrop-filter]:bg-white/80">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 group">
             <div className="flex flex-col">
@@ -140,7 +140,9 @@ const Header = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-black hover:bg-amber-50 focus:outline-none transition-colors"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-gray-700 hover:text-black hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition-all duration-200"
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             >
               <span className="sr-only">Open main menu</span>
               {!isMenuOpen ? (
@@ -180,19 +182,19 @@ const Header = () => {
 
         {/* Mobile menu */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-stone-100 ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="pb-4 pt-2 flex flex-col space-y-1">
+          <div className="pb-4 pt-3 flex flex-col space-y-2">
             {navLinks.map((link, index) =>
               link.href.startsWith('/#') ? (
                 <button
                   key={link.name}
                   onClick={(e) => handleHashLinkClick(e, link.href)}
-                  className={`px-3 py-2 rounded-md text-base font-medium transition-all text-left ${
+                  className={`px-4 py-3 rounded-lg text-base font-medium transition-all text-left ${
                     isActive(link.href)
-                      ? 'text-black bg-amber-50'
+                      ? 'text-black bg-amber-50 border border-amber-200'
                       : 'text-gray-600 hover:text-black hover:bg-amber-50'
                   }`}
                   style={{
@@ -207,9 +209,9 @@ const Header = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`px-3 py-2 rounded-md text-base font-medium transition-all ${
+                  className={`px-4 py-3 rounded-lg text-base font-medium transition-all ${
                     isActive(link.href)
-                      ? 'text-black bg-amber-50'
+                      ? 'text-black bg-amber-50 border border-amber-200'
                       : 'text-gray-600 hover:text-black hover:bg-amber-50'
                   }`}
                   style={{

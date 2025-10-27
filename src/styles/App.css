@@ -33,6 +33,38 @@ body.menu-open {
   left: 0;
 }
 
+/* Sticky header enhancements */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Ensure header stays on top of other elements */
+header.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Category filter container fixes */
+.category-filter-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.category-filter-container .scroll-container {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-filter-container .scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }

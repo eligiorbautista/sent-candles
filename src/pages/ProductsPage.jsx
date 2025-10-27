@@ -230,7 +230,7 @@ const ProductsPage = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="sticky top-20 z-40 bg-white/95 backdrop-blur-md border-b border-stone-100 shadow-sm">
+      <section className="sticky top-16 sm:top-20 z-40 bg-white/95 backdrop-blur-md border-b border-stone-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Search Bar */}
           <div className="mb-6">
@@ -247,31 +247,31 @@ const ProductsPage = () => {
           </div>
 
           {/* Category Filter */}
-          <div className="relative">
-            <div className="flex items-center gap-4">
+          <div className="category-filter-container">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Scroll Left Button */}
               <button
                 onClick={scrollLeft}
-                className="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center shadow-sm"
+                className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center shadow-sm z-10"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5 text-gray-700" />
+                <ChevronLeft className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700" />
               </button>
 
               {/* Filter Tags Container */}
               <div
                 ref={scrollContainerRef}
-                className="flex items-center gap-3 overflow-x-auto scrollbar-hide flex-1"
+                className="scroll-container flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-hide flex-1 py-1 px-1"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                    className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${
                       activeCategory === category.id
-                        ? 'bg-black text-white shadow-lg scale-105'
-                        : 'bg-amber-50 text-gray-700 hover:bg-amber-100 hover:scale-105'
+                        ? 'bg-black text-white shadow-lg'
+                        : 'bg-amber-50 text-gray-700 hover:bg-amber-100'
                     }`}
                   >
                     {category.name}
@@ -282,10 +282,10 @@ const ProductsPage = () => {
               {/* Scroll Right Button */}
               <button
                 onClick={scrollRight}
-                className="flex-shrink-0 w-10 h-10 rounded-full bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center shadow-sm"
+                className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center shadow-sm z-10"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5 text-gray-700" />
+                <ChevronRight className="w-3 h-3 sm:w-5 sm:h-5 text-gray-700" />
               </button>
             </div>
           </div>
