@@ -7,6 +7,8 @@ export default defineConfig({
     favicon: './public/favicon.jpg',
     title: 'Sent. Candles',
     meta: {
+      viewport:
+        'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
       description:
         'Handcrafted scented candles made with natural soy wax and premium fragrance oils. Each candle tells a story and captures a sentiment.',
       keywords:

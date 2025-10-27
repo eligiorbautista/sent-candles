@@ -5,9 +5,9 @@ const EventModal = ({ event, onClose }) => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     };
   }, []);
 
@@ -23,10 +23,10 @@ const EventModal = ({ event, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn overflow-y-auto"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp">
+      <div className="bg-white rounded-3xl max-w-5xl w-full my-8 shadow-2xl animate-slideUp relative">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -36,7 +36,8 @@ const EventModal = ({ event, onClose }) => {
           <X className="w-6 h-6" />
         </button>
 
-        <div className="p-6 md:p-8">
+        <div className="p-4 sm:p-6 md:p-8 max-h-[calc(90vh-4rem)] overflow-y-auto">
+          {/* Event Header */}
           {/* Event Header */}
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-4">
