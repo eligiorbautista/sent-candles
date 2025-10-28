@@ -11,7 +11,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const databaseService = {
   // Products
   async getProducts() {
-    console.log('Fetching products from Supabase...');
     const { data, error } = await supabase
       .from('products')
       .select(`
@@ -21,8 +20,6 @@ export const databaseService = {
         product_scents(*)
       `)
       .order('id', { ascending: false });
-    
-    console.log('Supabase response:', { data, error });
     if (error) throw error;
     return data;
   },
@@ -96,8 +93,7 @@ export const databaseService = {
       `)
       .order('event_date', { ascending: false });
     
-    if (error) {
-      console.error('❌ Supabase events error:', error);
+    if (error) { 
       throw error;
     }
     return data;
@@ -110,8 +106,7 @@ export const databaseService = {
       .select('*')
       .single();
     
-    if (error) {
-      console.error('❌ Supabase about content error:', error);
+    if (error) { 
       throw error;
     }
     return data;
@@ -124,8 +119,7 @@ export const databaseService = {
       .select('*')
       .order('sort_order');
     
-    if (error) {
-      console.error('❌ Supabase features error:', error);
+    if (error) { 
       throw error;
     }
     return data;
@@ -154,8 +148,7 @@ export const databaseService = {
   },
 
   // Site info
-  async getSiteInfo() {
-    console.log('🚀 databaseService.getSiteInfo() called');
+  async getSiteInfo() { 
     const { data, error } = await supabase
       .from('site_info')
       .select('*')

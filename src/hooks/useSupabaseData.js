@@ -9,7 +9,6 @@ export function useSupabaseData(fetchFunction, dependencies = []) {
 
   const fetchData = async () => {
     try {
-      console.log('🔄 Fetching data...');
       setLoading(true);
       setError(null);
       const result = await fetchFunction(); 
@@ -22,7 +21,6 @@ export function useSupabaseData(fetchFunction, dependencies = []) {
   };
 
   useEffect(() => {
-    console.log('🔄 useEffect triggered');
     fetchData();
   }, dependencies);
 

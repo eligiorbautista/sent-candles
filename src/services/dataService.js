@@ -15,9 +15,7 @@ export const dataService = {
   async getProducts() {
     try {
       const products = await databaseService.getProducts();
-      console.log('Raw products from Supabase:', products);
       const transformed = (products || []).map(transformProduct);
-      console.log('Transformed products:', transformed);
       return transformed;
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -76,14 +74,13 @@ export const dataService = {
       const events = await databaseService.getEvents();
       
       if (!events || !Array.isArray(events)) {
-        console.warn('⚠️ Events data is not an array:', events);
         return [];
       }
       
       const transformed = events.map(transformEvent).filter(Boolean);
       return transformed;
     } catch (error) {
-      console.error('❌ Error fetching events:', error);
+      console.error('Error fetching events:', error);
       return [];
     }
   },
@@ -99,7 +96,7 @@ export const dataService = {
         imagePlaceholder: about?.image_placeholder
       };
     } catch (error) {
-      console.error('❌ Error fetching about content:', error);
+      console.error('Error fetching about content:', error);
       return {
         tagline: 'Our Story',
         heading: 'About Sent. Candles',
@@ -115,7 +112,6 @@ export const dataService = {
       const features = await databaseService.getFeatures();
       
       if (!features || !Array.isArray(features)) {
-        console.warn('⚠️ Features data is not an array:', features);
         return [];
       }
       
@@ -127,7 +123,7 @@ export const dataService = {
       
       return transformed;
     } catch (error) {
-      console.error('❌ Error fetching features:', error);
+      console.error('Error fetching features:', error);
       return [];
     }
   },
@@ -173,9 +169,7 @@ export const dataService = {
   // Site info
   async getSiteInfo() {
     try {
-      console.log('🔍 dataService.getSiteInfo() called');
       const site = await databaseService.getSiteInfo();
-      console.log('📊 Raw site info from database:', site);
       
       const transformed = {
         name: site?.name,
@@ -184,10 +178,9 @@ export const dataService = {
         year: site?.year
       };
       
-      console.log('✅ Transformed site info:', transformed);
       return transformed;
     } catch (error) {
-      console.error('❌ Error fetching site info:', error);
+      console.error('Error fetching site info:', error);
       return {
         name: 'Sent.',
         tagline: 'Scented Candles',
