@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import Hero from '../components/sections/Hero';
-import Products from '../components/sections/Products';
-import About from '../components/sections/About';
-import Events from '../components/sections/Events';
-import Contact from '../components/sections/Contact';
-import BackToTop from '../components/common/BackToTop';
+import Hero from '../components/user/sections/Hero.jsx';
+import Products from '../components/user/sections/Products.jsx';
+import About from '../components/user/sections/About.jsx';
+import Events from '../components/user/sections/Events.jsx';
+import Contact from '../components/user/sections/Contact.jsx';
+import BackToTop from '../components/user/common/BackToTop.jsx';
 
 const HomePage = () => {
   // Set page title

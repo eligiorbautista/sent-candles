@@ -46,7 +46,7 @@ export const productsData = [
       'https://scontent.fmnl13-4.fna.fbcdn.net/v/t39.30808-6/470173491_122187492638166976_4991608339360746738_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGFu968cKEUhmZbuvr9c34fXwzr7kuEqPhfDOvuS4So-Gwp0B0tV-dW3r8Qm85KngHyBjdIehDpQdBgjnm8hfaf&_nc_ohc=aTEGUGYbhQ0Q7kNvwFTdiX1&_nc_oc=AdlunW8vnkn0Ri1fX1UbdwCA6iyxcL-YOKEoWavCAeameDuj0r0wJYHeyVkUNAy4WZI&_nc_zt=23&_nc_ht=scontent.fmnl13-4.fna&_nc_gid=r_xd2WyS4R1RYuMzSxg4kA&oh=00_Aff1DCni2UtBdqUDcO4GUivcAmWl48feSsEuYt0MmUnbbQ&oe=69046E1B',
     ],
     availableScents: [],
-    ingredients: [],
+    
   },
   {
     id: 2,
@@ -101,7 +101,7 @@ export const productsData = [
       'Coffee',
       'Orange Blossom',
     ],
-    ingredients: [],
+    
   },
 
   {
@@ -144,7 +144,7 @@ export const productsData = [
       'Coffee',
       'Orange Blossom',
     ],
-    ingredients: [],
+    
   },
   {
     id: 4,
@@ -185,7 +185,7 @@ export const productsData = [
       'Coffee',
       'Orange Blossom',
     ],
-    ingredients: [],
+    
   },
   {
     id: 5,
@@ -226,7 +226,7 @@ export const productsData = [
       'Coffee',
       'Orange Blossom',
     ],
-    ingredients: [],
+    
   },
   {
     id: 6,
@@ -268,7 +268,7 @@ export const productsData = [
       'Coffee',
       'Orange Blossom',
     ],
-    ingredients: [],
+    
   },
   {
     id: 7,
@@ -285,7 +285,7 @@ export const productsData = [
       'https://scontent.fmnl13-4.fna.fbcdn.net/v/t39.30808-6/533578549_122230614512166976_2107150422168102053_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGEaV9sJWqAdhkgVwtRlyQcaFt-kjsWF4RoW36SOxYXhMjAUhEClMMyJFkCr_Ol4OZRi27rLWKixDyE4Ut2YlN0&_nc_ohc=S80Na7QPXBYQ7kNvwHgPNU9&_nc_oc=AdkjJzt9ZMvVVDzN4RrGqvKpaqK2eI5qHKeqKnruOI2QVEwIoOFZcjyNMFvEmAHPHCw&_nc_zt=23&_nc_ht=scontent.fmnl13-4.fna&_nc_gid=VkkMC4ue6C4_DC772jCmvg&oh=00_AfeVxQvLfJGUsEnlV-bcmV9f0BbiatroFjF0sGM23iXVOA&oe=690462E3',
       'https://scontent.fmnl13-3.fna.fbcdn.net/v/t39.30808-6/535322675_122230614566166976_420400448146119682_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGnEB5ITqV1MiIp1OjOG79bkyFw8bMxI2yTIXDxszEjbBxBvaWzYvfw1unkKAnr0nDJyt8XAg3W9-xu5f3Jvy9t&_nc_ohc=c3sDgz9HqZUQ7kNvwGo_yEC&_nc_oc=AdltLYFblz9AAfq8D_ZiUlDi3u0Wb_VvAWqg_eHbwCMVfeyoK416nWQtsStgwVMqUdI&_nc_zt=23&_nc_ht=scontent.fmnl13-3.fna&_nc_gid=E5afY9yZ6eiewHEfHbagVA&oh=00_AffoLpqXKFWpC0BG5EQ4APk4X6rA99XFgis1BCPFRrUuzQ&oe=6904505F',
     ],
-    ingredients: [],
+    
   },
   {
     id: 8,
@@ -302,7 +302,7 @@ export const productsData = [
       'https://scontent.fmnl13-1.fna.fbcdn.net/v/t39.30808-6/539746854_122232019304166976_1089105412316707329_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEmzwZ1lHs3OnxcaNIgoQyM8TLLM9YmppbxMssz1iamliYlhuUUc9pmKezaiZrQtHp0Wu1KMa807Iu6HTP39oYX&_nc_ohc=fkL36HaCzIIQ7kNvwEw4KK4&_nc_oc=AdkBfT3iMtcdqd2zslEgaYzKy_ni8PLWfvKzCZPi2nbbwJJX5uh4hrN4-z4NUwc6FVg&_nc_zt=23&_nc_ht=scontent.fmnl13-1.fna&_nc_gid=-iMJ8GExNeMx0PGfF32ZzA&oh=00_Afc25V1OW846PyXSzv39npihJ4-GC1gyKgEEMlIYpcDehw&oe=69044EC7',
       'https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/540708864_122232019298166976_8338567951277579031_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE_PKDew8seMBdmgG8ztxhDlDQNLIQQdX6UNA0shBB1fglqn6b_2KJbYKhfnvxiuax0ys4cnL1hOBeAaEyae5xg&_nc_ohc=1ncC4qbNBqcQ7kNvwH_qJ_4&_nc_oc=Adl1woNW7H4rBVyin1Mv0vwHvL1g5_zZDl6ay1SsD5HMxazX8uLproO-ZGIsO8kQ-yg&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&_nc_gid=7J_18xUQFoFuDdKNJasO2w&oh=00_AfeTnpectWzReT60b9O8fBX4kTckk7MDa-V4_oOWWdqveQ&oe=69044A29',
     ],
-    ingredients: [],
+    
   },
   {
     id: 9,
@@ -319,7 +319,7 @@ export const productsData = [
       'https://scontent.fmnl13-1.fna.fbcdn.net/v/t39.30808-6/540677442_122232715550166976_562081278058416896_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGy34GTn7cLMDtHodDuH3hMnoxWv9AyU2SejFa_0DJTZPDonn_mzEJ5Y-VAbp8_dxvAaNjBtWPLuZxa38cXo9_D&_nc_ohc=w5CTKVgDd4UQ7kNvwHWZLiI&_nc_oc=AdmzApqvGUPYRcZqNuLV2KqZBy7ntgbH6W4VIGCtXLmTg8DhoetUfdQUvMVeoI3RS4I&_nc_zt=23&_nc_ht=scontent.fmnl13-1.fna&_nc_gid=Fa7cewwrDdXSjIjMn2-18g&oh=00_AfeWbIDxosJJP3kpGHuFCTAbDLmkAPAhhwPDdqUo-73mJw&oe=6904378F',
       'https://scontent.fmnl13-1.fna.fbcdn.net/v/t39.30808-6/540483458_122232715514166976_7110332126951523866_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE3UvvWVVDkB-uIO_gsLEWOAvPqB3r3PvMC8-oHevc-86WtKDFfEPdjMyPDR7XF88kDyNfPEjORIClX7ly0c_oo&_nc_ohc=JvVjPFnj7GkQ7kNvwGgrGL9&_nc_oc=Adn561BlrL5SYoUm6wAbMLxybQo3f6xEcdmlFZrItojZhbLIp10BFz3RIJMD-vpge74&_nc_zt=23&_nc_ht=scontent.fmnl13-1.fna&_nc_gid=8Sxrpe3PJkKNdcIDIRcdWw&oh=00_Afc0iT0GlOLl4uTqqdzy2aCrWZOTer7rvO55TVGry6JHjQ&oe=69048945',
     ],
-    ingredients: [],
+    
   },
   {
     id: 10,
@@ -335,6 +335,6 @@ export const productsData = [
     imageUrls: [
       'https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/559125174_122238275444166976_5513176457275375892_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHx4R1gEISl6eXQJjoQX0fHe6uDiFp4LaN7q4OIWngtowwGjlpkKHH22TIr3nA-1jXkb_7Syk-2ydzUDcalrf_Y&_nc_ohc=ROWah5S9RqEQ7kNvwHt4uBg&_nc_oc=AdmDSsIna2aUQ-6iZEBCpDBxjS2Li0eDj0_zXyJCTu_A70Uv1zQUe8n8FJynnXLFyMk&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&_nc_gid=FgmARrVlzld6ptQRSnnZZA&oh=00_AfftfM08QM0ywnXB7Mtcd25HRx9DFTrkanZESETCKSJUJw&oe=6904477C',
     ],
-    ingredients: [],
+    
   },
 ];

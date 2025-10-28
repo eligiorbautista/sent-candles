@@ -1,0 +1,178 @@
+import { useState } from 'react';
+import { Newspaper } from 'lucide-react';
+import { useEvents } from '../../../hooks/useSupabaseData.js';
+import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
+import EventModal from '../modals/EventModal';
+
+// Category colors mapping
+const categoryColors = {
+  'Event': 'bg-blue-100 text-blue-800',
+  'Announcement': 'bg-green-100 text-green-800',
+  'News': 'bg-purple-100 text-purple-800',
+  'Update': 'bg-orange-100 text-orange-800',
+};
+
+const EventCard = ({ event, index, onClick }) => {
+  const [ref, isVisible] = useScrollAnimation(0.1);
+
+  const getCategoryColor = (category) => {
+    return categoryColors[category] || 'bg-gray-200 text-black';
+  };
+
+  const hasImages = event.imageUrls && event.imageUrls.length > 0;
+
+  return (
+    <div
+      ref={ref}
+      className={`bg-white rounded-2xl shadow-md overflow-hidden hover-lift group transition-all duration-700 cursor-pointer ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+      onClick={onClick}
+    >
+      {/* Event Image */}
+      {hasImages && (
+        <div className="relative aspect-video bg-gradient-to-br from-stone-100 to-stone-200 overflow-hidden">
+          <img
+            src={event.imageUrls[0]}
+            alt={event.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+          {/* Image Counter Badge */}
+          {event.imageUrls.length > 1 && (
+            <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
+              {event.imageUrls.length} Photos
+            </div>
+          )}
+          {/* Hover Overlay */}
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span className="text-white font-semibold text-lg">
+              View Details
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <span
+            className={`text-xs font-semibold px-3 py-1.5 rounded-full ${getCategoryColor(event.category)}`}
+          >
+            {event.category}
+          </span>
+          <span className="text-sm text-gray-500">
+            {event.eventDate ? new Date(event.eventDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }) : 'TBD'}
+          </span>
+        </div>
+        <h3 className="text-xl font-bold text-black mb-3 group-hover:text-amber-600 transition-colors">
+          {event.title}
+        </h3>
+        <p className="text-gray-600 leading-relaxed line-clamp-3">
+          {event.description}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const Events = () => {
+  const [ref, isVisible] = useScrollAnimation(0.2);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // Fetch events from Supabase
+  const { data: events = [], loading, error } = useEvents();
+
+  // Show loading state
+  if (loading) {
+    return (
+      <section id="events" className="bg-white py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading events...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <section id="events" className="bg-white py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="text-red-500 text-4xl mb-4">⚠️</div>
+            <h3 className="text-xl font-semibold text-black mb-2">Error Loading Events</h3>
+            <p className="text-gray-600">Unable to load events. Please try again later.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="events" className="bg-white py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div
+          ref={ref}
+          className={`text-center mb-16 transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-100'
+          }`}
+        >
+          <div className="inline-block mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-600 text-sm font-medium">
+              <Newspaper className="w-4 h-4" />
+              Announcements & Events
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
+            Latest Announcements & Events
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Stay up to date with our newest products, events, and stories from
+            the Sent. Candles community.
+          </p>
+        </div>
+
+        {/* Events Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.isArray(events) && events.length > 0 ? events.map((event, index) => (
+            <EventCard
+              key={event.id}
+              event={event}
+              index={index}
+              onClick={() => setSelectedEvent(event)}
+            />
+          )) : (
+            <div className="col-span-full text-center py-12">
+              <div className="text-gray-400 text-4xl mb-4">📅</div>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">No Events Available</h3>
+              <p className="text-gray-500">Check back later for upcoming events and announcements.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Event Modal */}
+      {selectedEvent && (
+        <EventModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+        />
+      )}
+    </section>
+  );
+};
+
+export default Events;
+
+

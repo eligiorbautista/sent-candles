@@ -1,5 +1,15 @@
 // Hero section content
-export const heroContent = {
+// This file now provides a hook-based approach to fetch hero content from Supabase
+
+import { useHeroContent } from '../hooks/useSupabaseData.js';
+
+// Hook to get hero content
+export const useHeroData = () => {
+  return useHeroContent();
+};
+
+// Fallback static data (used when Supabase is not available)
+export const fallbackHeroContent = {
   badge: 'Handcrafted with Love',
   heading: {
     line1: 'Hand-Crafted',

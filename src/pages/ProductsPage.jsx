@@ -6,10 +6,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { productsData, categories } from '../data/productsData';
-import { backgroundImages } from '../data/assetsData';
-import BackToTop from '../components/common/BackToTop';
-import ProductModal from '../components/modals/ProductModal';
+import { useProducts, useCategories } from '../hooks/useSupabaseData.js';
+import { useBackgroundImages } from '../data/assetsData';
+import BackToTop from '../components/user/common/BackToTop.jsx';
+import ProductModal from '../components/user/modals/ProductModal.jsx';
 
 const ProductCard = ({ product, onClick }) => {
   return (
@@ -137,6 +137,11 @@ const ProductsPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const scrollContainerRef = useRef(null);
+  const backgroundImages = useBackgroundImages();
+
+  // Fetch data from Supabase
+  const { data: products = [], loading: productsLoading, error: productsError } = useProducts();
+  const { data: categories = [], loading: categoriesLoading, error: categoriesError } = useCategories();
 
   // Set page title and meta tags
   useEffect(() => {
@@ -176,12 +181,12 @@ const ProductsPage = () => {
   };
 
   // Filter products by category and search query
-  const filteredProducts = [...productsData].reverse().filter((product) => {
+  const filteredProducts = (products || []).filter((product) => {
     const matchesCategory =
       activeCategory === 'all' || product.category === activeCategory;
     const matchesSearch =
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.scent.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (product.scent && product.scent.toLowerCase().includes(searchQuery.toLowerCase())) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchesCategory && matchesSearch;
@@ -197,6 +202,37 @@ const ProductsPage = () => {
     setTimeout(() => setSelectedProduct(null), 300); // Wait for animation
   };
 
+  // Show loading state
+  if (productsLoading || categoriesLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading products...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (productsError || categoriesError) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-black mb-2">Error Loading Products</h2>
+          <p className="text-gray-600 mb-4">There was a problem loading the products. Please try again later.</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -204,7 +240,7 @@ const ProductsPage = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <img
-            src={backgroundImages.productsHero}
+            src={backgroundImages.productsHero || ''}
             alt="Candles Background"
             className="w-full h-full object-cover filter blur-sm"
           />
