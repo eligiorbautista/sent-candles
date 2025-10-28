@@ -1,6 +1,6 @@
 import { X, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { socialLinks } from '../../data/assetsData';
+import { socialMedia } from '../../data/contactData';
 
 const ProductModal = ({ product, isOpen, onClose }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -133,7 +133,10 @@ const ProductModal = ({ product, isOpen, onClose }) => {
             <div className="flex flex-col">
               {/* Main Image Container */}
               <div className="relative group mb-4">
-                <div className="aspect-square bg-gradient-to-br from-amber-50 to-stone-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg">
+                <div
+                  className="aspect-square bg-gradient-to-br from-amber-50 to-stone-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg cursor-pointer"
+                  onClick={nextImage}
+                >
                   {product.imageUrls && Array.isArray(product.imageUrls) && product.imageUrls.length > 0 && product.imageUrls[selectedImageIndex] ? (
                     <img
                       src={product.imageUrls[selectedImageIndex]}
@@ -181,14 +184,14 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200"
                       aria-label="Previous image"
                     >
                       <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200"
                       aria-label="Next image"
                     >
                       <ChevronRight className="w-5 h-5" />
@@ -238,6 +241,21 @@ const ProductModal = ({ product, isOpen, onClose }) => {
             {/* Right: Product Details */}
             <div className="flex flex-col">
               <div className="flex-1">
+                {/* Meta badges */}
+                {(product.size || product.burnTime) && (
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    {product.size && (
+                      <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
+                        Size: {product.size}
+                      </span>
+                    )}
+                    {product.burnTime && (
+                      <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
+                        Burn time: {product.burnTime}
+                      </span>
+                    )}
+                  </div>
+                )}
                 {/* Description */}
                 <div className="mb-6">
                   <h3 className="text-sm font-semibold text-black mb-3 uppercase tracking-wide">
@@ -251,58 +269,46 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 {/* Variants / Price Section */}
                 {product.variants && Array.isArray(product.variants) && product.variants.length > 0 ? (
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-black mb-3 uppercase tracking-wide">
-                      Available Options
+                    <h3 className="text-sm font-semibold text-black mb-2 uppercase tracking-wide">
+                      Options & Pricing
                     </h3>
-                    <div className="space-y-3">
+                    <p className="text-xs text-gray-500 mb-3">
+                      Displayed for reference. Message us to inquire or order.
+                    </p>
+                    <ul className="divide-y divide-stone-100 rounded-xl border border-stone-200 bg-white overflow-hidden">
                       {product.variants.map((variant, index) => {
                         if (!variant || typeof variant !== 'object') return null;
+                        const statusClass =
+                          variant.stockStatus === 'in-stock'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : variant.stockStatus === 'pre-order'
+                              ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                              : 'bg-gray-50 text-gray-500 border border-gray-200';
+                        const statusLabel =
+                          variant.stockStatus === 'in-stock'
+                            ? 'In Stock'
+                            : variant.stockStatus === 'pre-order'
+                              ? 'Pre-Order'
+                              : 'Out of Stock';
                         return (
-                          <div
-                            key={index}
-                            className={`border p-4 rounded-xl flex items-center justify-between transition-all duration-200 ${
-                              variant.stockStatus === 'out-of-stock'
-                                ? 'bg-gray-50 border-gray-200 opacity-60'
-                                : 'bg-stone-50 border-stone-200 hover:border-amber-400 hover:shadow-sm'
-                            }`}
-                          >
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-1">
-                                <p className="font-semibold text-black">
-                                  {variant.name || 'Option'}
-                                </p>
-                                {variant.stockStatus && (
-                                  <span
-                                    className={`text-xs font-medium px-2 py-1 rounded-full ${
-                                      variant.stockStatus === 'in-stock'
-                                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                        : variant.stockStatus === 'pre-order'
-                                          ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                                          : 'bg-gray-50 text-gray-500 border border-gray-200'
-                                    }`}
-                                  >
-                                    {variant.stockStatus === 'in-stock'
-                                      ? '✓ In Stock'
-                                      : variant.stockStatus === 'pre-order'
-                                        ? '⏱ Pre-Order'
-                                        : '✕ Out of Stock'}
-                                  </span>
-                                )}
-                              </div>
+                          <li key={index} className="flex items-center justify-between px-4 py-3">
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-black truncate">
+                                {variant.name || 'Option'}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                ₱{variant.price || '0'}
+                              </p>
                             </div>
-                            <p
-                              className={`text-2xl font-bold ${
-                                variant.stockStatus === 'out-of-stock'
-                                  ? 'text-gray-400'
-                                  : 'text-amber-600'
-                              }`}
-                            >
-                              ₱{variant.price || '0'}
-                            </p>
-                          </div>
+                            {variant.stockStatus && (
+                              <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${statusClass}`}>
+                                {statusLabel}
+                              </span>
+                            )}
+                          </li>
                         );
                       })}
-                    </div>
+                    </ul>
                   </div>
                 ) : (
                   <div className="mb-6">
@@ -323,35 +329,25 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 {/* Scent Section */}
                 <div className="mb-6">
                   <h3 className="text-sm font-semibold text-black mb-3 uppercase tracking-wide">
-                    Scent
+                    Scents
                   </h3>
-                  {product.availableScents &&
-                  product.availableScents.length > 0 ? (
-                    <div>
-                      <button
-                        onClick={() => setShowScents(!showScents)}
-                        className="bg-amber-50 border border-amber-100 px-4 py-3 rounded-xl text-amber-800 font-medium hover:bg-amber-100 transition-all duration-200 flex items-center gap-2"
-                      >
-                        Multiple Scents Available 
-                        <span className="text-lg">{showScents ? '−' : '+'}</span>
-                      </button>
-                      {showScents && (
-                        <div className="grid grid-cols-2 gap-2 text-sm mt-4">
-                          {product.availableScents.map((scent, index) => (
-                            <div
-                              key={index}
-                              className="bg-amber-50 border border-amber-100 px-3 py-2 rounded-lg text-amber-800 font-medium"
-                            >
-                              {scent}
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                  {product.availableScents && Array.isArray(product.availableScents) && product.availableScents.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {product.availableScents.map((scent, index) => (
+                        <span
+                          key={index}
+                          className="text-sm font-medium px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-100"
+                        >
+                          {scent}
+                        </span>
+                      ))}
                     </div>
                   ) : (
-                    <div className="bg-amber-50 border border-amber-100 px-4 py-3 rounded-xl text-amber-800 font-medium inline-block">
-                      {product.scent}
-                    </div>
+                    product.scent && (
+                      <span className="text-sm font-medium px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-100 inline-block">
+                        {product.scent}
+                      </span>
+                    )
                   )}
                 </div>
               </div>
@@ -359,7 +355,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
               {/* Contact Button */}
               <div className="border-t border-stone-100 pt-6">
                 <a
-                  href={socialLinks.facebook}
+                  href={socialMedia.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full bg-black text-white text-center px-6 py-4 rounded-xl font-medium hover:bg-amber-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"

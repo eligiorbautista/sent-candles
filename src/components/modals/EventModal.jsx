@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { categoryColors } from '../../data/eventsData';
 
 const EventModal = ({ event, onClose }) => {
   const [selectedImage, setSelectedImage] = useState(0);
@@ -64,7 +65,11 @@ const EventModal = ({ event, onClose }) => {
         <div className="flex justify-between items-start p-4 sm:p-6 border-b border-gray-100">
           <div className="flex-1 pr-4">
             <div className="flex flex-wrap items-center gap-3 mb-3">
-              <span className="px-3 py-1.5 rounded-full bg-amber-100 text-amber-600 text-sm font-semibold">
+              <span
+                className={`px-3 py-1.5 rounded-full text-sm font-semibold ${
+                  categoryColors[event.category] || 'bg-stone-200 text-gray-900'
+                }`}
+              >
                 {event.category}
               </span>
               <span className="text-gray-500 text-sm">{event.date}</span>
@@ -97,7 +102,10 @@ const EventModal = ({ event, onClose }) => {
               <div className="space-y-4">
                 {/* Main Image Container */}
                 <div className="relative group">
-                  <div className="aspect-video bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl sm:rounded-2xl overflow-hidden">
+                  <div
+                    className="aspect-video bg-gradient-to-br from-stone-100 to-stone-200 rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer"
+                    onClick={nextImage}
+                  >
                     <img
                       src={event.imageUrls[selectedImage]}
                       alt={`${event.title} - Image ${selectedImage + 1}`}
@@ -113,14 +121,14 @@ const EventModal = ({ event, onClose }) => {
                     <>
                       <button
                         onClick={prevImage}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200"
                         aria-label="Previous image"
                       >
                         <ChevronLeft className="w-5 h-5" />
                       </button>
                       <button
                         onClick={nextImage}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-200"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200"
                         aria-label="Next image"
                       >
                         <ChevronRight className="w-5 h-5" />
@@ -139,15 +147,15 @@ const EventModal = ({ event, onClose }) => {
                 {/* Thumbnail Gallery */}
                 {event.imageUrls.length > 1 && (
                   <div className="space-y-3">
-                    <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide py-1">
+                    <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide py-1 px-1">
                       {event.imageUrls.map((url, index) => (
                         <button
                           key={index}
                           onClick={() => setSelectedImage(index)}
-                          className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden transition-all duration-200 ${
+                          className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden transition-all duration-200 p-0.5 ${
                             selectedImage === index
-                              ? 'ring-2 ring-amber-500 ring-offset-2 scale-105'
-                              : 'opacity-60 hover:opacity-100 hover:scale-105'
+                              ? 'outline outline-2 outline-amber-500'
+                              : 'opacity-60 hover:opacity-100'
                           }`}
                         >
                           <img

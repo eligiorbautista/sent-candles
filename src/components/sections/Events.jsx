@@ -87,11 +87,11 @@ const Events = () => {
           <div className="inline-block mb-4">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-600 text-sm font-medium">
               <Newspaper className="w-4 h-4" />
-              News & Events
+              Announcements & Events
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
-            Latest Events
+            Latest Announcements & Events
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Stay up to date with our newest products, events, and stories from
@@ -101,7 +101,7 @@ const Events = () => {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {eventsData.map((event, index) => (
+          {[...eventsData].reverse().map((event, index) => (
             <EventCard
               key={event.id}
               event={event}
