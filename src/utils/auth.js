@@ -4,7 +4,10 @@ const AUTH_STORAGE_KEY = 'sent_admin_token';
 
 export async function isAuthenticated() {
   try {
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
     if (error) {
       console.error('Error checking authentication:', error);
       return false;
@@ -60,7 +63,7 @@ export async function changePassword(currentPassword, newPassword) {
     // First, verify the current password by attempting to sign in
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: (await supabase.auth.getUser()).data.user?.email,
-      password: currentPassword
+      password: currentPassword,
     });
 
     if (signInError) {
@@ -70,7 +73,7 @@ export async function changePassword(currentPassword, newPassword) {
 
     // If current password is correct, update to new password
     const { error } = await supabase.auth.updateUser({
-      password: newPassword
+      password: newPassword,
     });
 
     if (error) {
@@ -88,7 +91,7 @@ export async function changePassword(currentPassword, newPassword) {
 export async function resetPassword(email) {
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/admin/reset-password`,
+      redirectTo: `https://sentcandles.netlify.app/admin/reset-password`,
     });
 
     if (error) {
@@ -114,5 +117,3 @@ export function onAuthStateChange(callback) {
     callback(event, session);
   });
 }
-
-
