@@ -91,7 +91,7 @@ export async function changePassword(currentPassword, newPassword) {
 export async function resetPassword(email) {
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `https://sentcandles.netlify.app/admin/reset-password`,
+      redirectTo: `${window.location.origin}/admin/reset-password`,
     });
 
     if (error) {
