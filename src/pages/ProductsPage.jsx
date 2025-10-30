@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import {
   Sparkles,
   Star,
@@ -180,6 +180,14 @@ const ProductsPage = () => {
     }
   };
 
+  // Build categories list with 'All Products' first
+  const categoriesList = useMemo(() => {
+    const base = categories || [];
+    // Ensure we don't duplicate an 'all' entry if backend includes one
+    const filtered = base.filter((c) => c.id !== 'all');
+    return [{ id: 'all', name: 'All Products' }, ...filtered];
+  }, [categories]);
+
   // Filter products by category and search query
   const filteredProducts = (products || []).filter((product) => {
     const matchesCategory =
@@ -300,7 +308,7 @@ const ProductsPage = () => {
                 className="scroll-container flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-hide flex-1 py-1 px-1"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                {categories.map((category) => (
+                {categoriesList.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
@@ -340,13 +348,13 @@ const ProductsPage = () => {
               </span>{' '}
               {filteredProducts.length === 1 ? 'candle' : 'candles'}
               {activeCategory !== 'all' && (
-                <span className="ml-1">
-                  in{' '}
-                  <span className="font-semibold text-black">
-                    {categories.find((c) => c.id === activeCategory)?.name}
+                  <span className="ml-1">
+                    in {' '}
+                    <span className="font-semibold text-black">
+                      {categoriesList.find((c) => c.id === activeCategory)?.name}
+                    </span>
                   </span>
-                </span>
-              )}
+                )}
             </p>
           </div>
 
