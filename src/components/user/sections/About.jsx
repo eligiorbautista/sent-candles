@@ -1,5 +1,8 @@
 import { Sparkles } from 'lucide-react';
-import { useAboutContent, useFeatures } from '../../../hooks/useSupabaseData.js';
+import {
+  useAboutContent,
+  useFeatures,
+} from '../../../hooks/useSupabaseData.js';
 import { useBackgroundImages } from '../../../data/assetsData';
 import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
 
@@ -10,8 +13,16 @@ const About = () => {
   const backgroundImages = useBackgroundImages();
 
   // Fetch data from Supabase
-  const { data: aboutContent, loading: aboutLoading, error: aboutError } = useAboutContent();
-  const { data: features, loading: featuresLoading, error: featuresError } = useFeatures();
+  const {
+    data: aboutContent,
+    loading: aboutLoading,
+    error: aboutError,
+  } = useAboutContent();
+  const {
+    data: features,
+    loading: featuresLoading,
+    error: featuresError,
+  } = useFeatures();
 
   // Show loading state
   if (aboutLoading || featuresLoading) {
@@ -34,8 +45,12 @@ const About = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-500 text-4xl mb-4">⚠️</div>
-            <h3 className="text-xl font-semibold text-black mb-2">Error Loading Content</h3>
-            <p className="text-gray-600">Unable to load about content. Please try again later.</p>
+            <h3 className="text-xl font-semibold text-black mb-2">
+              Error Loading Content
+            </h3>
+            <p className="text-gray-600">
+              Unable to load about content. Please try again later.
+            </p>
           </div>
         </div>
       </section>
@@ -71,11 +86,14 @@ const About = () => {
             ref={imageRef}
             className={`order-2 lg:order-1 transition-all duration-1000 ${
               imageVisible
-                ? 'translate-x-0 opacity-100'
-                : '-translate-x-4 opacity-100'
+                ? 'translate-y-0 lg:translate-x-0 opacity-0'
+                : 'translate-y-4 lg:translate-y-0 lg:-translate-x-4 opacity-100'
             }`}
           >
-            <div className="aspect-[4/3] bg-gradient-to-br from-stone-100 to-stone-200 rounded-3xl shadow-2xl overflow-hidden hover-lift">
+            {/* FIX: Added w-full, max-w-lg, and mx-auto for mobile centering.
+              Added lg:max-w-none and lg:mx-0 to reset for desktop.
+            */}
+            <div className="aspect-[4/3] bg-gradient-to-br from-stone-100 to-stone-200 rounded-3xl shadow-2xl overflow-hidden hover-lift w-full max-w-lg mx-auto lg:max-w-none lg:mx-0">
               {aboutContent?.imagePlaceholder ? (
                 <img
                   src={aboutContent.imagePlaceholder}
@@ -115,8 +133,8 @@ const About = () => {
             ref={textRef}
             className={`order-1 lg:order-2 space-y-6 transition-all duration-1000 ${
               textVisible
-                ? 'translate-x-0 opacity-100'
-                : 'translate-x-4 opacity-100'
+                ? 'translate-y-0 lg:translate-x-0 opacity-0'
+                : 'translate-y-4 lg:translate-y-0 lg:translate-x-4 opacity-100'
             }`}
           >
             <div className="inline-block">
@@ -144,39 +162,43 @@ const About = () => {
             ref={featuresRef}
             className={`text-3xl md:text-4xl font-bold text-black text-center mb-12 transition-all duration-1000 ${
               featuresVisible
-                ? 'translate-y-0 opacity-100'
+                ? 'translate-y-0 opacity-0'
                 : 'translate-y-4 opacity-100'
             }`}
           >
             What Makes Us Special
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features && features.length > 0 ? features.map((feature, index) => {
-              const IconComponent = feature.icon;
-              return (
-                <div
-                  key={index}
-                  className={`text-center group hover-lift bg-white rounded-2xl p-8 shadow-md transition-all duration-700 ${
-                    featuresVisible
-                      ? 'translate-y-0 opacity-100'
-                      : 'translate-y-4 opacity-100'
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-2xl shadow-md text-amber-600 mb-4 group-hover:scale-110 transition-transform">
-                    <IconComponent className="w-8 h-8" />
+            {features && features.length > 0 ? (
+              features.map((feature, index) => {
+                const IconComponent = feature.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`text-center group hover-lift bg-white rounded-2xl p-8 shadow-md transition-all duration-700 ${
+                      featuresVisible
+                        ? 'translate-y-0 opacity-0'
+                        : 'translate-y-4 opacity-100'
+                    }`}
+                    style={{ transitionDelay: `${index * 100}ms` }}
+                  >
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-2xl shadow-md text-amber-600 mb-4 group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-xl font-bold text-black mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-black mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              );
-            }) : (
+                );
+              })
+            ) : (
               <div className="col-span-full text-center text-gray-600">
-                {featuresLoading ? 'Loading features...' : 'No features available'}
+                {featuresLoading
+                  ? 'Loading features...'
+                  : 'No features available'}
               </div>
             )}
           </div>
@@ -187,5 +209,3 @@ const About = () => {
 };
 
 export default About;
-
-

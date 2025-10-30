@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
-import { useContactInfo, useSocialMedia, useSiteInfo } from '../../../hooks/useSupabaseData.js';
+import {
+  useContactInfo,
+  useSocialMedia,
+  useSiteInfo,
+} from '../../../hooks/useSupabaseData.js';
 import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
 import Toast from '../common/Toast';
 
@@ -15,9 +19,21 @@ const Contact = () => {
   const [formRef, formVisible] = useScrollAnimation(0.2);
 
   // Fetch data from Supabase
-  const { data: contactInfo, loading: contactLoading, error: contactError } = useContactInfo();
-  const { data: socialMedia, loading: socialLoading, error: socialError } = useSocialMedia();
-  const { data: siteInfo, loading: siteLoading, error: siteError } = useSiteInfo();
+  const {
+    data: contactInfo,
+    loading: contactLoading,
+    error: contactError,
+  } = useContactInfo();
+  const {
+    data: socialMedia,
+    loading: socialLoading,
+    error: socialError,
+  } = useSocialMedia();
+  const {
+    data: siteInfo,
+    loading: siteLoading,
+    error: siteError,
+  } = useSiteInfo();
 
   const handleChange = (e) => {
     setFormData({
@@ -59,8 +75,12 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-500 text-4xl mb-4">⚠️</div>
-            <h3 className="text-xl font-semibold text-black mb-2">Error Loading Contact Info</h3>
-            <p className="text-gray-600">Unable to load contact information. Please try again later.</p>
+            <h3 className="text-xl font-semibold text-black mb-2">
+              Error Loading Contact Info
+            </h3>
+            <p className="text-gray-600">
+              Unable to load contact information. Please try again later.
+            </p>
           </div>
         </div>
       </section>
@@ -76,7 +96,7 @@ const Contact = () => {
           onClose={() => setToast(null)}
         />
       )}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div
@@ -84,14 +104,15 @@ const Contact = () => {
             className={`transition-all duration-1000 ${
               infoVisible
                 ? 'translate-x-0 opacity-100'
-                : '-translate-x-4 opacity-100'
+                : '-translate-x-4 opacity-100' // Note: This was opacity-100, might be a typo and should be opacity-0?
             }`}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
               {siteInfo?.name || 'Contact Us'}
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              {siteInfo?.description || 'Get in touch with us for any inquiries or questions.'}
+              {siteInfo?.description ||
+                'Get in touch with us for any inquiries or questions.'}
             </p>
 
             <div className="space-y-6">
@@ -140,7 +161,9 @@ const Contact = () => {
                 </div>
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-black">Location</h3>
-                  <p className="mt-1 text-gray-600">{contactInfo?.location || 'Loading...'}</p>
+                  <p className="mt-1 text-gray-600">
+                    {contactInfo?.location || 'Loading...'}
+                  </p>
                 </div>
               </div>
 
@@ -171,13 +194,12 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
           <div
             ref={formRef}
-            className={`bg-white rounded-2xl shadow-lg p-8 transition-all duration-1000 ${
+            className={`bg-white shadow-lg p-8 -mx-8 sm:-mx-12 lg:mx-0 rounded-none sm:rounded-none lg:rounded-2xl transition-all duration-1000 mr-0 ${
               formVisible
                 ? 'translate-x-0 opacity-100'
-                : 'translate-x-4 opacity-100'
+                : 'translate-x-4 opacity-100' // Note: This was opacity-100, might be a typo and should be opacity-0?
             }`}
           >
             <h3 className="text-2xl font-bold text-black mb-6">
@@ -256,5 +278,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-

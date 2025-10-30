@@ -1,5 +1,10 @@
 import './styles/App.css';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import Header from './components/user/layout/Header.jsx';
 import Footer from './components/user/layout/Footer.jsx';
 import HomePage from './pages/HomePage';
@@ -21,7 +26,7 @@ const AppContent = () => {
   return (
     <div className="min-h-screen bg-white">
       {!isAdminRoute && <Header />}
-      <main>
+      <main className={`${!isAdminRoute ? 'pt-16 sm:pt-20' : ''}`}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />

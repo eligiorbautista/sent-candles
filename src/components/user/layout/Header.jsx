@@ -9,8 +9,16 @@ const Header = () => {
   const navigate = useNavigate();
 
   // Fetch data from Supabase
-  const { data: siteInfo, loading: siteLoading, error: siteError } = useSiteInfo();
-  const { data: navLinks, loading: navLoading, error: navError } = useNavLinks();
+  const {
+    data: siteInfo,
+    loading: siteLoading,
+    error: siteError,
+  } = useSiteInfo();
+  const {
+    data: navLinks,
+    loading: navLoading,
+    error: navError,
+  } = useNavLinks();
 
   // Handle scrolling to hash on location change
   useEffect(() => {
@@ -94,7 +102,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-stone-100 supports-[backdrop-filter]:bg-white/80">
+    <header className="fixed w-full left-0 top-0 bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-stone-100 supports-[backdrop-filter]:bg-white/80">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
@@ -237,5 +245,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

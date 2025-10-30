@@ -33,8 +33,8 @@ body.menu-open {
   left: 0;
 }
 
-/* Sticky header enhancements */
-header {
+/* Sticky header enhancements - only apply when header is NOT using .fixed */
+header:not(.fixed) {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -42,8 +42,8 @@ header {
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Ensure header stays on top of other elements */
-header.sticky {
+/* Ensure header.sticky stays on top when not using .fixed */
+header.sticky:not(.fixed) {
   position: sticky;
   top: 0;
   z-index: 50;
