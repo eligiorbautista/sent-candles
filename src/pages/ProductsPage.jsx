@@ -140,8 +140,16 @@ const ProductsPage = () => {
   const backgroundImages = useBackgroundImages();
 
   // Fetch data from Supabase
-  const { data: products = [], loading: productsLoading, error: productsError } = useProducts();
-  const { data: categories = [], loading: categoriesLoading, error: categoriesError } = useCategories();
+  const {
+    data: products = [],
+    loading: productsLoading,
+    error: productsError,
+  } = useProducts();
+  const {
+    data: categories = [],
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories();
 
   // Set page title and meta tags
   useEffect(() => {
@@ -194,7 +202,8 @@ const ProductsPage = () => {
       activeCategory === 'all' || product.category === activeCategory;
     const matchesSearch =
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.scent && product.scent.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.scent &&
+        product.scent.toLowerCase().includes(searchQuery.toLowerCase())) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchesCategory && matchesSearch;
@@ -228,10 +237,14 @@ const ProductsPage = () => {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-black mb-2">Error Loading Products</h2>
-          <p className="text-gray-600 mb-4">There was a problem loading the products. Please try again later.</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <h2 className="text-2xl font-bold text-black mb-2">
+            Error Loading Products
+          </h2>
+          <p className="text-gray-600 mb-4">
+            There was a problem loading the products. Please try again later.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
             className="bg-amber-600 text-white px-6 py-2 rounded-full hover:bg-amber-700 transition-colors"
           >
             Retry
@@ -348,13 +361,13 @@ const ProductsPage = () => {
               </span>{' '}
               {filteredProducts.length === 1 ? 'candle' : 'candles'}
               {activeCategory !== 'all' && (
-                  <span className="ml-1">
-                    in {' '}
-                    <span className="font-semibold text-black">
-                      {categoriesList.find((c) => c.id === activeCategory)?.name}
-                    </span>
+                <span className="ml-1">
+                  in{' '}
+                  <span className="font-semibold text-black">
+                    {categoriesList.find((c) => c.id === activeCategory)?.name}
                   </span>
-                )}
+                </span>
+              )}
             </p>
           </div>
 
